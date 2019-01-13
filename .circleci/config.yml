@@ -13,10 +13,10 @@ jobs:
               py-pip bash jq
             pip install \
               awscli
-      - run:
-          name: Setup common environment variables
-          command: |
-            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}"' >> $BASH_ENV
+              # - run:
+              #     name: Setup common environment variables
+              #     command: |
+              #       echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}"' >> $BASH_ENV
       - run:
           name: Run Tests
           command: |
@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Deploy To Amazon ECR
           command: |
-            docker build -t ${FULL_IMAGE_NAME} .
+            docker build -t ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME} .
             # docker build -t testtest .
             # eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
             # docker push ${FULL_IMAGE_NAME}
