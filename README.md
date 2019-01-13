@@ -32,7 +32,6 @@ APP_NAME: example
 REGION: ap-northeast-1
 DOCKERFILE_PATH: example/Dockerfile
 IMAGE_NAME: oreno-docker-image/${APP_NAME}
-ECR_URI: $(aws sts get-caller-identity --query=Account --output=text).dkr.ecr.ap-northeast-1.amazonaws.com
 TARGET_ENV: lastest
 ```
 
