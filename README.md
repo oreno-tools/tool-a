@@ -1,4 +1,4 @@
-# 俺のカンパニー tool-a
+# 俺のカンパニー tool-a [![CircleCI](https://circleci.com/gh/oreno-tools/tool-a.svg?style=svg)](https://circleci.com/gh/oreno-tools/tool-a)
 
 ## これなに
 
