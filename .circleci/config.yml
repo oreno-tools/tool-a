@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ubuntu
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: |
+            cd tests && ./functions_test.sh
