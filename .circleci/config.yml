@@ -29,7 +29,6 @@ jobs:
       - run:
           name: Deploy To Amazon ECR
           command: |
-            echo ${FULL_IMAGE_NAME}
-            # docker build -t ${FULL_IMAGE_NAME} . 
-            # eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-            # docker push ${FULL_IMAGE_NAME}
+            docker build -t ${FULL_IMAGE_NAME} .
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            docker push ${FULL_IMAGE_NAME}
