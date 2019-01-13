@@ -8,6 +8,8 @@ jobs:
       - run:
           name: Setup AWS CLI
           command: |
+            apt-get update
+            apt-get install curl
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
@@ -18,7 +20,8 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            cd tests && ./functions_test.sh
+            cd tests
+            ./functions_test.sh
       - run:
           name: Deploy To Amazon S3 Bucket
           command: |
@@ -26,6 +29,6 @@ jobs:
       - run:
           name: Deploy To Amazon ECR
           command: |
-            docker build -t ${FULL_IMAGE_NAME} . && \
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email) && \
+            docker build -t ${FULL_IMAGE_NAME} . 
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
             docker push ${FULL_IMAGE_NAME}
