@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: docker:latest
     steps:
       - checkout
       - setup_remote_docker
@@ -29,6 +29,7 @@ jobs:
       - run:
           name: Deploy To Amazon ECR
           command: |
-            docker build -t ${FULL_IMAGE_NAME} .
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-            docker push ${FULL_IMAGE_NAME}
+            # docker build -t ${FULL_IMAGE_NAME} .
+            docker build -t testtest .
+            # eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            # docker push ${FULL_IMAGE_NAME}
