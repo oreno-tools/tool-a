@@ -10,9 +10,9 @@ jobs:
           name: Install dependencies
           command: |
             apk add --no-cache \
-              py-pip=9.0.0-r1 bash jq
+              py-pip bash jq
             pip install \
-              awscli==1.16.88
+              awscli
       - run:
           name: Setup common environment variables
           command: |
