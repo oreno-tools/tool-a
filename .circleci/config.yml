@@ -6,6 +6,26 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Setup AWS CLI
+          command: |
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+      - run:
+        name: Setup common environment variables
+        command: |
+          echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:latest"' >> $BASH_ENV
+      - run:
           name: Run Tests
           command: |
             cd tests && ./functions_test.sh
+      - run:
+          name: Deploy To Amazon S3 Bucket
+          command: |
+            aws s3 cp script.sh s3://${S3_BUCKET}/tool-a/script.sh
+      - run:
+          name: Deploy To Amazon ECR
+          command: |
+            docker build -t ${FULL_IMAGE_NAME} . && \
+            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email) && \
+            docker push ${FULL_IMAGE_NAME}
